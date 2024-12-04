@@ -1,0 +1,13 @@
+<app-navbar></app-navbar>
+<div class="confirmation-container">
+    <h1>Dear Student,</h1>
+    <p>You have successfully subscribed to your course!</p>
+    <p>
+      <strong>Start Date:</strong> {{ startDate }}
+    </p>
+    <p>
+      <strong>End Date:</strong> {{ endDate }}
+    </p>
+    <p>Happy Learning!</p>
+    <button (click)="goToFeedback()" class="feedback-btn">Give Feedback</button>
+  </div>

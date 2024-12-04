@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+<div class="feedback-container">
+    <h1>Feedback</h1>
+    <form (ngSubmit)="sendFeedback()" #feedbackForm="ngForm">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="name"
+          name="name"
+          required
+          minlength="3"
+          #nameField="ngModel"
+        />
+        <div *ngIf="nameField.invalid && nameField.touched" class="error-message">
+          Name is required and should be at least 3 characters long.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="phone">Your Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          [(ngModel)]="phone"
+          name="phone"
+          required
+          pattern="^\d{10}$"
+          #phoneField="ngModel"
+        />
+        <div *ngIf="phoneField.invalid && phoneField.touched" class="error-message">
+          Phone number is required and must be exactly 10 digits.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="feedback">Your Feedback</label>
+        <textarea
+          id="feedback"
+          [(ngModel)]="feedback"
+          name="feedback"
+          required
+          minlength="10"
+          #feedbackField="ngModel"
+        ></textarea>
+        <div *ngIf="feedbackField.invalid && feedbackField.touched" class="error-message">
+          Feedback is required and must be at least 10 characters long.
+        </div>
+      </div>
+  
+      <button type="submit" class="send-btn" [disabled]="feedbackForm.invalid">
+        Send Feedback
+      </button>
+    </form>
+</div>

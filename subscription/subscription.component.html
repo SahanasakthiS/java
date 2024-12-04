@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+<div class="subscription-container">
+  <h1>Subscription Page</h1>
+  <form (ngSubmit)="subscribeNow()" #subscriptionForm="ngForm">
+    <div class="form-group">
+      <label for="userId">User ID</label>
+      <input
+        type="text"
+        id="userId"
+        [(ngModel)]="userId"
+        name="userId"
+        #userIdInput="ngModel"
+        required
+        minlength="3"
+        maxlength="20"
+      />
+      <div *ngIf="userIdInput.invalid && userIdInput.touched">
+        <small class="error-text" *ngIf="userIdInput.errors?.['required']">User ID is required.</small>
+        <small class="error-text" *ngIf="userIdInput.errors?.['minlength']">User ID must be at least 3 characters.</small>
+        <small class="error-text" *ngIf="userIdInput.errors?.['maxlength']">User ID cannot exceed 20 characters.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="planName">Plan Name</label>
+      <input
+        type="text"
+        id="planName"
+        [(ngModel)]="planName"
+        name="planName"
+        #planNameInput="ngModel"
+        required
+      />
+      <div *ngIf="planNameInput.invalid && planNameInput.touched">
+        <small class="error-text" *ngIf="planNameInput.errors?.['required']">Plan Name is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date & Time</label>
+      <input
+        type="datetime-local"
+        id="startDate"
+        [(ngModel)]="startDate"
+        name="startDate"
+        #startDateInput="ngModel"
+        required
+        [min]="minDate"
+      />
+      <div *ngIf="startDateInput.invalid && startDateInput.touched">
+        <small class="error-text" *ngIf="startDateInput.errors?.['required']">Start Date & Time is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End Date & Time</label>
+      <input
+        type="datetime-local"
+        id="endDate"
+        [(ngModel)]="endDate"
+        name="endDate"
+        #endDateInput="ngModel"
+        required
+        [min]="startDate"
+        (change)="validateDates()"
+      />
+      <div *ngIf="endDateInput.invalid && endDateInput.touched">
+        <small class="error-text" *ngIf="endDateInput.errors?.['required']">End Date & Time is required.</small>
+        <small class="error-text" *ngIf="endDateInvalid">End Date should be after Start Date.</small>
+      </div>
+    </div>
+
+    <button type="submit" class="subscribe-btn" [disabled]="subscriptionForm.invalid">Subscribe Now</button>
+  </form>
+</div>

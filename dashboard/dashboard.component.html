@@ -1,0 +1,67 @@
+<header>
+    <div class="header-left">Edu-Consultancy</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about" routerLink="/about">About Us</a>
+        <a href="blogs" routerLink="/blogs">blogs</a>
+        <a href="contact" routerLink="/contact">Contact</a>
+    </nav>
+</header>
+<div class="course-list-container">
+    <h1>Available Courses</h1>
+
+    <input type="text" class="search-bar" placeholder="Search courses..." [(ngModel)]="searchTerm" (input)="updateDropdown()" (keydown.enter)="filterTopCourse()" (blur)="onSearchBlur()">
+
+    <ul class="suggestions-list" *ngIf="searchFocused && filteredCourses.length > 0">
+        <li *ngFor="let course of filteredCourses" (click)="selectCourse(course)">
+            {{ course.name }}
+        </li>
+    </ul>
+
+
+    <!-- Show "Back" button only when a single course is selected -->
+
+    <button *ngIf="displayedCourses.length === 1" class="back-button" (click)="resetDashboard()">
+      Back to All Courses
+  </button>
+
+
+    <div class="course-container">
+        <div *ngFor="let course of displayedCourses" class="course-card">
+            <img [src]="course.image" [alt]="course.name" class="course-image">
+            <div class="course-details">
+                <h3 class="course-name">{{ course.name }}</h3>
+                <p class="professor-name">Professor:{{ course.professor }}</p>
+                <p class="course-price">Price: ${{ course.price }}</p>
+                <a href="/subs" class="buy-button">Buy Now</a>
+                <div class="read-more-container">
+                    <button class="read-more-button" (click)="toggleReadMore(course)">
+                    {{ course.showMore ? 'Read Less' : 'Read More' }}
+                  </button>
+                    <p class="course-description" *ngIf="course.showMore">
+                        {{ course.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function filterCourses() {
+        const input = document.querySelector('.search-bar');
+        const filter = input.value.toLowerCase();
+        const courseCards = document.querySelectorAll('.course-card');
+
+        courseCards.forEach(card => {
+            const courseName = card.querySelector('.course-name').textContent.toLowerCase();
+            if (courseName.includes(filter)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>

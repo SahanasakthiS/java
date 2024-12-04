@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="main">
+  <section class="form-section">
+    <h3>Student Sign Up</h3>
+    <form action="dashboard" method="post" id="sah" (ngSubmit)="onSubmit()" #signupForm="ngForm">
+      <label for="userName">User Name</label>
+      <input id="userName" [(ngModel)]="userName" name="userName" type="text" required minlength="3" #userNameField="ngModel">
+      <div *ngIf="userNameField.invalid && userNameField.touched" class="error">
+        <p>User Name is required and should be at least 3 characters long.</p>
+      </div>
+
+     
+
+      <label for="email">Email</label>
+      <input [(ngModel)]="email" type="email" name="email" autocomplete="off" id="mail" required email #emailField="ngModel">
+      <div *ngIf="emailField.invalid && emailField.touched" class="error">
+        <p>Please enter a valid email address.</p>
+      </div>
+
+      <label for="password">Password</label>
+      <input type="password" [(ngModel)]="password" id="password" name="password" required minlength="6" #passwordField="ngModel">
+      <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+        <p>Password is required and should be at least 6 characters long.</p>
+      </div>
+
+      <label for="password">Confrim Password</label>
+      <input type="password" id="password" name="password" required minlength="6" >
+      <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+        <p>Password is required and should be at least 6 characters long.</p>
+      </div>
+
+      <p>Already registered? <a href="login" routerLink="/login">Login</a></p>
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+  </section>
+</div>

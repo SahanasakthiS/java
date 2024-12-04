@@ -1,0 +1,69 @@
+<app-navbar></app-navbar>
+<div class="payment-container">
+  <h2>Payment Form</h2>
+
+  <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)" action="dashboard" method="post">
+  
+    <div class="form-group">
+      <label for="payerName">Payer Name</label>
+      <input id="payerName" 
+             [(ngModel)]="payerName" 
+             name="payerName" 
+             required 
+             type="text" 
+             class="form-control" 
+             #payerNameCtrl="ngModel" />
+      <div *ngIf="payerNameCtrl.touched && payerNameCtrl.invalid" class="text-danger">
+        <small *ngIf="payerNameCtrl.errors?.['required']">Payer Name is required.</small>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="payerEmail">Payer Email</label>
+      <input id="payerEmail" 
+             [(ngModel)]="payerEmail" 
+             name="payerEmail" 
+             required 
+             type="email" 
+             class="form-control" 
+             #payerEmailCtrl="ngModel" />
+      <div *ngIf="payerEmailCtrl.touched && payerEmailCtrl.invalid" class="text-danger">
+        <small *ngIf="payerEmailCtrl.errors?.['required']">Payer Email is required.</small>
+        <small *ngIf="payerEmailCtrl.errors?.['email']">Invalid email format.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="courseName">Course Name</label>
+      <input id="courseName" 
+             [(ngModel)]="courseName" 
+             name="courseName" 
+             required 
+             type="text" 
+             class="form-control" 
+             #courseNameCtrl="ngModel" />
+      <div *ngIf="courseNameCtrl.touched && courseNameCtrl.invalid" class="text-danger">
+        <small *ngIf="courseNameCtrl.errors?.['required']">Course Name is required.</small>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input id="amount" 
+             [(ngModel)]="amount" 
+             name="amount" 
+             required 
+             type="number" 
+             class="form-control" 
+             #amountCtrl="ngModel" />
+      <div *ngIf="amountCtrl.touched && amountCtrl.invalid" class="text-danger">
+        <small *ngIf="amountCtrl.errors?.['required']">Amount is required.</small>
+        <small *ngIf="amountCtrl.errors?.['min']">Amount must be greater than 0.</small>
+      </div>
+    </div>
+  
+    <button type="submit" 
+            class="btn btn-primary" 
+            [disabled]="paymentForm.invalid">Pay Now</button>
+  </form>
+</div>
